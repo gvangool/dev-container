@@ -12,7 +12,9 @@ RUN yum install -y python python-{devel,setuptools,imaging} && \
     yum clean all && \
     easy_install pip
 
-RUN groupadd --gid 1003 gert && adduser --uid 1001 -g gert gert
+RUN groupadd --gid 1003 gert && \
+    adduser --uid 1001 -g gert gert && \
+    echo '%gert      ALL=(ALL)       NOPASSWD: ALL' > /etc/sudoers.d/gert
 USER gert
 WORKDIR /home/gert
 RUN mkdir -p src && cd src && \
